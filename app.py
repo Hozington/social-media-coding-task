@@ -48,7 +48,6 @@ def get_api_response_body(api_response):
     :return:
     """
     body = None
-
     if api_response.status_code != 200:
         return body
 
@@ -57,7 +56,7 @@ def get_api_response_body(api_response):
     except Exception as e:
         print(str(e))
 
-    return body
+    return None if not isinstance(body, list) else body
 
 
 def get_stat(config):

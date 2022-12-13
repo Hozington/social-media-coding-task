@@ -64,7 +64,7 @@ def get_stat(config):
     """
     Get a numeric indicator of the amount of content
     posted on a social network.
-    Default to zero if the content is None.
+    Default to -1 if the content is None.
     :param config:
     :return:
     """
@@ -72,7 +72,7 @@ def get_stat(config):
     api_response = request(url)
     content = get_api_response_body(api_response)
 
-    count = 0 if content is None else len(content)
+    count = -1 if content is None else len(content)
     key = config.get("identifier")
     return key, count
 

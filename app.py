@@ -1,3 +1,4 @@
+import logging
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from threading import local
 
@@ -49,12 +50,13 @@ def get_api_response_body(api_response):
     """
     body = None
     if api_response.status_code != 200:
+        logging.error(api_response.text)
         return body
 
     try:
         body = api_response.json()
     except Exception as e:
-        print(str(e))
+        logging.error(str(e))
 
     return None if not isinstance(body, list) else body
 
@@ -94,7 +96,7 @@ def get_stats():
             key, count = i.result()
             stats[key] = count
         except Exception as e:
-            print(str(e))
+            logging.error(str(e))
 
     executor.shutdown()
 
